@@ -1,7 +1,6 @@
 #include "Window.h"
 
-int main()
-{
+int main() {
     setlocale(LC_ALL, "");
 
     // Вам нужно будет считать данные значения из конфига

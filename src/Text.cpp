@@ -1,19 +1,15 @@
 #include "Text.h"
 
-Text::Text(const Text &other) 
-{
+Text::Text(const Text &other) {
     Transfer(other);
 }
 
-Text::Text(Text &&other)
-{
+Text::Text(Text &&other) {
     Transfer(other);
 }
 
-Text::Text(const std::filesystem::path& fontPath, const sf::String text, const int fontSize)
-{
-    if (!_font.openFromFile(fontPath))
-    {
+Text::Text(const std::filesystem::path &fontPath, const sf::String text, const int fontSize) {
+    if (!_font.openFromFile(fontPath)) {
         std::cerr << "Could not load font!\n";
         exit(-1);
     }
@@ -21,37 +17,31 @@ Text::Text(const std::filesystem::path& fontPath, const sf::String text, const i
     _text = sf::Text(_font, text, fontSize);
 }
 
-void Text::Draw(sf::RenderTarget& target)
-{
+void Text::Draw(sf::RenderTarget &target) {
     target.draw(_text);
 }
 
-const int Text::GetCharacterSize() const
-{
+const int Text::GetCharacterSize() const {
     return _text.getCharacterSize();
 }
 
-void Text::SetPosition(const sf::Vector2f position)
-{
+void Text::SetPosition(const sf::Vector2f position) {
     _text.setPosition(position);
 }
 
-Text& Text::operator =(const Text &other)
-{
+Text &Text::operator =(const Text &other) {
     Transfer(other);
 
     return *this;
 }
 
-Text& Text::operator =(Text &&other)
-{
+Text &Text::operator =(Text &&other) {
     Transfer(other);
 
     return *this;
 }
 
-void Text::Transfer(const Text& other)
-{
+void Text::Transfer(const Text &other) {
     _font = other._font;
     _text = other._text;
 

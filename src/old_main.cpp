@@ -4,8 +4,7 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
-int main()
-{
+int main() {
     setlocale(LC_ALL, "");
 
     // Создадим новое окно размером w*h пикселей.
@@ -15,7 +14,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode({wWidth, wHeight}), "Demo");
 
     auto desktop = sf::VideoMode::getDesktopMode();
-    window.setPosition({ ((int) desktop.size.x) / 2 - wWidth / 2, ((int) desktop.size.y) / 2 - wHeight / 2 });
+    window.setPosition({((int) desktop.size.x) / 2 - wWidth / 2, ((int) desktop.size.y) / 2 - wHeight / 2});
 
     window.setFramerateLimit(60);
 
@@ -38,15 +37,14 @@ int main()
     float rectangleColor[3] = {1.0f, 0.0f, 0.0f};
 
     // Будем использовать эти значения  позже для того, чтобы двигать прямоугольник
-    float rectangleSpeedX = 1.0f;  
-    float rectangleSpeedY = 0.5f; 
+    float rectangleSpeedX = 1.0f;
+    float rectangleSpeedY = 0.5f;
 
     // Загрузим шрифт, чтобы отрисовать текст
     sf::Font myFont;
 
     // Читаем шрифт из файла
-    if (!myFont.openFromFile("../fonts/futura.ttf"))
-    {
+    if (!myFont.openFromFile("../fonts/futura.ttf")) {
         // Если не смогли прочесть шрифт - выводим ошибку в stderr и выходим
         std::cerr << "Could not load font!\n";
         exit(-1);
@@ -60,27 +58,24 @@ int main()
     text.setPosition({0, wHeight - (float) text.getCharacterSize()});
 
     // Основной цикл - крутится каждый кадр, пока открыто окно 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         // Обработка событий
-        while (const std::optional event = window.pollEvent())
-        {
+        while (const std::optional event = window.pollEvent()) {
             // Передача события в ImGui для обработки им
             ImGui::SFML::ProcessEvent(window, *event);
 
             // Это событие дергается, если окно было закрыто по кнопке
-            if (event->is<sf::Event::Closed>())
-            {
+            if (event->is<sf::Event::Closed>()) {
                 window.close();
-            }
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())  // Это событие дергается, если была нажата клавиша
+            } else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
+            // Это событие дергается, если была нажата клавиша
             {
                 // Печатаем, что за клавиша в консоль
-                std::wcout << L"Key pressed with code = " << sf::Keyboard::getDescription(keyPressed->scancode).toWideString() << "\n";
+                std::wcout << L"Key pressed with code = " << sf::Keyboard::getDescription(keyPressed->scancode).
+                        toWideString() << "\n";
 
                 // Например, при нажатой английской B
-                if (keyPressed->code == sf::Keyboard::Key::B)
-                {
+                if (keyPressed->code == sf::Keyboard::Key::B) {
                     // Меняем направление движения прямоугольника
                     rectangleSpeedX *= -1.0f;
                     rectangleSpeedY *= -1.0f;
@@ -107,20 +102,21 @@ int main()
         ImGui::End();
 
         // Устанавливаем цвет прямоугольника, т.к. он мог измениться через UI
-        rectangle.setFillColor(sf::Color(rectangleColor[0]*255, rectangleColor[1]*255, rectangleColor[2]*255));
+        rectangle.setFillColor(sf::Color(rectangleColor[0] * 255, rectangleColor[1] * 255, rectangleColor[2] * 255));
         // Базовая анимация - двигаем прямоугольник
-        rectangle.setPosition({rectangle.getPosition().x + rectangleSpeedX, rectangle.getPosition().y + rectangleSpeedY});
+        rectangle.setPosition(
+            {rectangle.getPosition().x + rectangleSpeedX, rectangle.getPosition().y + rectangleSpeedY});
 
         // Вызовы методов отрисовки
         window.clear(); // Очищаем окно от предыдущей отрисовки (очистка буфера)
-        
-        if (drawRectangle)  // Рисуем прямоугольник, если true
+
+        if (drawRectangle) // Рисуем прямоугольник, если true
             window.draw(rectangle);
 
         window.draw(text);
 
-        ImGui::SFML::Render(window);  // Отрисовываем UI в самом конце, т.к. он должен быть поверх
-        window.display();  // Вызываем метод отрисовки всего окна
+        ImGui::SFML::Render(window); // Отрисовываем UI в самом конце, т.к. он должен быть поверх
+        window.display(); // Вызываем метод отрисовки всего окна
     }
 
     ImGui::SFML::Shutdown();

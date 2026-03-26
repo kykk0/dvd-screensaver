@@ -24,13 +24,16 @@ class Window {
     void Initialize();
 
     void UpdateUserInput();
+
     void UpdateLogic();
+
     void UpdateGui();
+
     void Render();
 
 public:
     Window(const unsigned int wWidth, const unsigned int wHeight);
-    
+
     void Run();
 };
 

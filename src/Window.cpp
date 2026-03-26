@@ -1,11 +1,11 @@
 #include "Window.h"
 
-Window::Window(const unsigned int wWidth, const unsigned int wHeight) 
-{
+Window::Window(const unsigned int wWidth, const unsigned int wHeight) {
+    _isRun = true;
     _window.create(sf::VideoMode({wWidth, wHeight}), "Demo");
 
     auto desktop = sf::VideoMode::getDesktopMode();
-    _window.setPosition({ (int) (desktop.size.x / 2 - wWidth / 2), (int) (desktop.size.y / 2 - wHeight / 2) });
+    _window.setPosition({(int) (desktop.size.x / 2 - wWidth / 2), (int) (desktop.size.y / 2 - wHeight / 2)});
 
     _window.setFramerateLimit(60);
 
@@ -17,8 +17,7 @@ Window::Window(const unsigned int wWidth, const unsigned int wHeight)
     Initialize();
 }
 
-void Window::Initialize()
-{
+void Window::Initialize() {
     // Все эти дефолтные данные надо будет прочитать из конфигурационного файла
     _rect = std::make_shared<Rectangle>(sf::Vector2f{120.f, 50.f});
     _rect->SetPosition({100.0f, 10.0f});
@@ -27,10 +26,8 @@ void Window::Initialize()
     _text->SetPosition({0, _window.getSize().y - (float) _text->GetCharacterSize()});
 }
 
-void Window::Run()
-{
-    while (_isRun) 
-    {
+void Window::Run() {
+    while (_isRun) {
         sf::Time delta = _deltaClock.restart();
         ImGui::SFML::Update(_window, delta);
 
@@ -44,35 +41,28 @@ void Window::Run()
     ImGui::SFML::Shutdown();
 }
 
-void Window::UpdateUserInput()
-{
-    while (const std::optional event = _window.pollEvent())
-    {
+void Window::UpdateUserInput() {
+    while (const std::optional event = _window.pollEvent()) {
         ImGui::SFML::ProcessEvent(_window, *event);
 
-        if (event->is<sf::Event::Closed>())
-        {
+        if (event->is<sf::Event::Closed>()) {
             _isRun = false;
-        }
-        else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) 
-        {
-            std::wcout << L"Key pressed with code = " << sf::Keyboard::getDescription(keyPressed->scancode).toWideString() << "\n";
+        } else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+            std::wcout << L"Key pressed with code = " << sf::Keyboard::getDescription(keyPressed->scancode).
+                    toWideString() << "\n";
 
-            if (keyPressed->code == sf::Keyboard::Key::B)
-            {
+            if (keyPressed->code == sf::Keyboard::Key::B) {
                 _rect->ReverseMove();
             }
         }
     }
 }
 
-void Window::UpdateLogic()
-{
+void Window::UpdateLogic() {
     _rect->Update();
 }
 
-void Window::UpdateGui()
-{
+void Window::UpdateGui() {
     //ImGui::ShowDemoWindow();
 
     ImGui::Begin("Window Title");
@@ -88,10 +78,9 @@ void Window::UpdateGui()
     ImGui::End();
 }
 
-void Window::Render()
-{
+void Window::Render() {
     _window.clear();
-    
+
     _rect->Draw(_window);
     _text->Draw(_window);
 

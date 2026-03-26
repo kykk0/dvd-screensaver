@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.31)
 project(Demo
-    VERSION 1.0
-    LANGUAGES CXX)
+        VERSION 1.0
+        LANGUAGES CXX)
 
 file(COPY
-    fonts/futura.ttf
-    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/fonts)
+        fonts/futura.ttf
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/fonts)
 #file(COPY
 #    config.txt
 #    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
