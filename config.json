@@ -1,0 +1,14 @@
+{
+  "WindowWidth": 1280,
+  "WindowHeight": 720,
+  "FontPath": "../fonts/futura.ttf",
+  "LogoPaths": [
+    "../images/DVDLogo.png",
+    "../images/BluRayLogo.png",
+    "../images/CDLogo.png"
+  ],
+  "SpeedX": 1.0,
+  "SpeedY": 0.5,
+  "Scale": 1.0,
+  "Color": [1.0, 0.0, 0.0]
+}

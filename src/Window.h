@@ -1,15 +1,14 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <iostream>
-#include <memory>
 #include <SFML/Graphics.hpp>
-
+#include <vector>
+#include <memory>
 #include "imgui.h"
 #include "imgui-SFML.h"
-
-#include "Rectangle.h"
-#include "Text.h"
+#include "DrawableObject.h"
+#include "UI.h"
+#include "Config.h"
 
 class Window {
     sf::RenderWindow _window;
@@ -18,8 +17,10 @@ class Window {
 
     bool _isRun;
 
-    std::shared_ptr<Rectangle> _rect;
-    std::shared_ptr<Text> _text;
+    Config _config;
+
+    std::vector<std::shared_ptr<DrawableObject> > _objects;
+    std::unique_ptr<UI> _ui;
 
     void Initialize();
 
@@ -32,7 +33,7 @@ class Window {
     void Render();
 
 public:
-    Window(const unsigned int wWidth, const unsigned int wHeight);
+    Window(const Config &config);
 
     void Run();
 };
