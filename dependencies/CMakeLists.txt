@@ -21,6 +21,11 @@ FetchContent_Declare(
         URL "https://github.com/SFML/imgui-sfml/archive/v${IMGUI_SFML_VERSION}.zip"
 )
 
+FetchContent_Declare(
+        json
+        URL "https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz"
+)
+
 # Or by tag...
 #FetchContent_Declare(
 #imgui-sfml
@@ -48,3 +53,5 @@ option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
 option(IMGUI_SFML_IMGUI_DEMO "Build imgui_demo.cpp" OFF)
 
 FetchContent_MakeAvailable(imgui-sfml)
+
+FetchContent_MakeAvailable(json)

@@ -1,13 +1,12 @@
 #include "Window.h"
+#include "Config.h"
 
 int main() {
     setlocale(LC_ALL, "");
 
-    // Вам нужно будет считать данные значения из конфига
-    const int wWidth = 1280;
-    const int wHeight = 720;
+    Config config = Config::Load("../config.json");
 
-    Window window(wWidth, wHeight);
+    Window window(config);
     window.Run();
 
     return 0;
